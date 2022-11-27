@@ -1,0 +1,14 @@
+symptoms,Alzheimers,Arthritis,Asthma,Coronavirus,Diabetes,Epilepsy,Glaucoma,Heart Disease,Heat Stroke,Hyperthyroidism,Hypothermia,Jaundice,Sinusitis,Tuberculosis
+1,no,no,no,high,no,no,low,no,high,no,no,no,low,no
+2,no,high,no,no,no,no,no,no,no,no,no,no,no,no
+3,no,no,high,high,no,no,no,high,no,no,no,no,no,high
+4,no,no,high,high,no,no,no,no,no,no,no,no,high,low
+5,no,no,no,no,no,no,no,no,no,no,yes,no,no,no
+6,no,no,no,high,no,no,no,no,no,no,no,no,high,no
+7,no,low,no,high,high,low,no,no,no,high,no,high,no,no
+8,high,no,low,no,no,no,no,no,no,no,no,no,no,no
+9,no,no,no,no,no,no,no,no,no,no,high,no,no,no
+10,no,no,no,high,no,no,no,no,high,no,no,low,low,high
+11,no,no,no,no,no,no,no,no,no,no,no,no,no,no
+12,no,no,no,no,low,no,high,high,high,low,no,high,no,no
+13,no,no,no,no,low,no,low,no,no,no,no,no,no,no
