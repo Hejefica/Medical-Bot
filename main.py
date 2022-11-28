@@ -47,7 +47,6 @@ def preprocess():
     diseases_list = get_DB_diseases(cursor)
 
     for disease in diseases_list:
-
         cursor.execute(f"SELECT {disease} FROM medicaldiagnosis.symptoms")
         Symptoms = []
         for row in cursor:
@@ -85,7 +84,6 @@ def if_not_matched(disease):
     print(f"Description: {disease_details}\n")
     print(f"Treatment: {treatments}\n")
     print("-----------------------------------------------")
-
 
 #program entry point
 if __name__ == "__main__":

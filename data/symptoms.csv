@@ -1,4 +1,4 @@
-symptoms,Alzheimers,Arthritis,Asthma,Coronavirus,Diabetes,Epilepsy,Glaucoma,Heart Disease,Heat Stroke,Hyperthyroidism,Hypothermia,Jaundice,Sinusitis,Tuberculosis
+﻿symptoms,Alzheimers,Arthritis,Asthma,Coronavirus,Diabetes,Epilepsy,Glaucoma,Heart_Disease,Heat_Stroke,Hyperthyroidism,Hypothermia,Jaundice,Sinusitis,Tuberculosis
 1,no,no,no,high,no,no,low,no,high,no,no,no,low,no
 2,no,high,no,no,no,no,no,no,no,no,no,no,no,no
 3,no,no,high,high,no,no,no,high,no,no,no,no,no,high
