@@ -13,7 +13,9 @@ class Greetings(KnowledgeEngine):
     @DefFacts()
     def _initial_action(self):
         os.system('cls')
-        print("Diagnose diseases bot initiated.")
+        print("###################################################################")
+        print("#################### Medical Diagnosis Bot ########################")
+        print("###################################################################")
         print("\nDo you feel any of the following symptoms? (Reply high or low or no)")
         yield Fact(action="find_disease")
 
@@ -221,7 +223,7 @@ class Greetings(KnowledgeEngine):
         Fact(blurred_vision="no"),
     )
     def disease_7(self):
-        self.declare(Fact(disease="Heart Disease"))
+        self.declare(Fact(disease="Heart_Disease"))
 
     @Rule(
         Fact(action="find_disease"),
@@ -297,7 +299,7 @@ class Greetings(KnowledgeEngine):
         Fact(blurred_vision="no"),
     )
     def disease_11(self):
-        self.declare(Fact(disease="Heat Stroke"))
+        self.declare(Fact(disease="Heat_Stroke"))
 
     @Rule(
         Fact(action="find_disease"),

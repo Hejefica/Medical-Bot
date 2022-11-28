@@ -3,6 +3,10 @@ from greetings import Greetings
 import mysql.connector
 import pandas as pd
 import os
+import warnings
+
+#FOR FINAL USE ONLY, IMPORTANT CODE WARNINGS MAY BE IGNORED WHILE DEBUGGING!
+warnings.filterwarnings("ignore")
 
 diseases_list = []
 diseases_symptoms = []
@@ -44,18 +48,13 @@ def preprocess():
 
     for disease in diseases_list:
 
-        """cursor.execute(f"SELECT '{disease}' FROM medicaldiagnosis.symptoms")
+        cursor.execute(f"SELECT {disease} FROM medicaldiagnosis.symptoms")
+        Symptoms = []
         for row in cursor:
             for field in row:
-                diseases_symptoms.append(field)
-                symptom_map[str(field)] = disease"""
-        
-        disease_s_file = open("Disease symptoms/" + disease + ".txt")
-        disease_s_data = disease_s_file.read()
-        s_list = disease_s_data.split("\n")
-        diseases_symptoms.append(s_list)
-        symptom_map[str(s_list)] = disease
-        disease_s_file.close()
+                Symptoms.append(field)
+        diseases_symptoms.append(Symptoms)
+        symptom_map[str(Symptoms)] = disease
 
         cursor.execute(f"SELECT description FROM medicaldiagnosis.diseases WHERE disease = '{disease}'")
         description =  pd.read_sql(f"SELECT description FROM medicaldiagnosis.diseases WHERE disease = '{disease}'", connection)
