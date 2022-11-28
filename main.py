@@ -8,11 +8,8 @@ import warnings
 #FOR FINAL USE ONLY, IMPORTANT CODE WARNINGS MAY BE IGNORED WHILE DEBUGGING!
 warnings.filterwarnings("ignore")
 
-diseases_list = []
-diseases_symptoms = []
-symptom_map = {}
-d_desc_map = {}
-d_treatment_map = {}
+diseases_LIST, diseases_SYMP_LIST = [], []
+diseases_SYMP_MAP, diseases_DESC_MAP, diseases_TREAT_MAP = {}, {}, {}
 
 #creates connection to MySQL local DB
 def create_server_connection(host_name, user_name, user_password, database):
@@ -23,13 +20,10 @@ def create_server_connection(host_name, user_name, user_password, database):
         user = user_name,
         passwd = user_password,
         database = database,
-        buffered = True
-        )
-        #print("MySQL Database connection successful")
+        buffered = True)
     except Error as err:
         print(f"Error: '{err}'")
     return connection
-
 connection = create_server_connection("localhost", "root", "hejefica", "medicaldiagnosis")
 
 #gets a disease list from DB 
@@ -52,47 +46,35 @@ def preprocess():
         for row in cursor:
             for field in row:
                 Symptoms.append(field)
-        diseases_symptoms.append(Symptoms)
-        symptom_map[str(Symptoms)] = disease
+        diseases_SYMP_LIST.append(Symptoms)
+        diseases_SYMP_MAP[str(Symptoms)] = disease
 
         cursor.execute(f"SELECT description FROM medicaldiagnosis.diseases WHERE disease = '{disease}'")
         description =  pd.read_sql(f"SELECT description FROM medicaldiagnosis.diseases WHERE disease = '{disease}'", connection)
-        d_desc_map[disease] = description.iloc[0,0]
+        diseases_DESC_MAP[disease] = description.iloc[0,0]
 
         cursor.execute(f"SELECT treatment FROM medicaldiagnosis.diseases WHERE disease = '{disease}'")
         treatment =  pd.read_sql(f"SELECT treatment FROM medicaldiagnosis.diseases WHERE disease = '{disease}'", connection)
-        d_treatment_map[disease] = treatment.iloc[0,0]
+        diseases_TREAT_MAP[disease] = treatment.iloc[0,0]
 
-def identify_disease(*arguments):
-    symptom_list = []
-    for symptom in arguments:
-        symptom_list.append(symptom)
+def get_disease_DESC(disease): return diseases_DESC_MAP[disease]
 
-    return symptom_map[str(symptom_list)]
-
-def get_details(disease): return d_desc_map[disease]
-
-def get_treatments(disease): return d_treatment_map[disease]
+def get_disease_TREAT(disease): return diseases_TREAT_MAP[disease]
 
 def if_not_matched(disease):
-    print("")
-    id_disease = disease
-    disease_details = get_details(id_disease)
-    treatments = get_treatments(id_disease)
+    disease_DESC = get_disease_DESC(disease)
+    disease_TREAT = get_disease_TREAT(disease)
     os.system('cls')
-    print(f"Your symptoms mostly match with: {id_disease}\n")
-    print(f"Description: {disease_details}\n")
-    print(f"Treatment: {treatments}\n")
-    print("-----------------------------------------------")
+    print(f"""Your symptoms mostly match with: {disease}
+            \nDescription: {disease_DESC}
+            \nTreatment: {disease_TREAT}
+            \n-----------------------------------------------""")
 
-#program entry point
+#program entry point for greeting class creation and loop while user exits the program
 if __name__ == "__main__":
     preprocess()
+    engine = Greetings(diseases_SYMP_MAP, if_not_matched, get_disease_TREAT, get_disease_DESC)
 
-    #creating class object
-    engine = Greetings(symptom_map, if_not_matched, get_treatments, get_details)
-
-    #loop to keep running the code until user says no when asked for another diagnosis
     while 1:
         engine.reset()
         engine.run()
