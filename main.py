@@ -1,5 +1,5 @@
 from mysql.connector import Error
-from greetings import Greetings
+from expert import MedConsult
 import mysql.connector
 import pandas as pd
 import os
@@ -36,7 +36,7 @@ def get_DB_diseases(cursor):
     return Diseases
 
 #loads the knowledge from MySQL DB into variables
-def preprocess():
+def process_DB_knowledge():
     cursor = connection.cursor()
     diseases_list = get_DB_diseases(cursor)
 
@@ -61,23 +61,23 @@ def get_disease_DESC(disease): return diseases_DESC_MAP[disease]
 
 def get_disease_TREAT(disease): return diseases_TREAT_MAP[disease]
 
-def if_not_matched(disease):
+def if_unmatched(disease):
     disease_DESC = get_disease_DESC(disease)
     disease_TREAT = get_disease_TREAT(disease)
     os.system('cls')
-    print(f"""Your symptoms mostly match with: {disease}
-            \nDescription: {disease_DESC}
-            \nTreatment: {disease_TREAT}
-            \n-----------------------------------------------""")
+    print(f"Your symptoms mostly match with: {disease}\n")
+    print(f"Description: {disease_DESC}\n")
+    print(f"Treatment: {disease_TREAT}\n")
+    print(f"-----------------------------------------------")
 
 #program entry point for greeting class creation and loop while user exits the program
 if __name__ == "__main__":
-    preprocess()
-    engine = Greetings(diseases_SYMP_MAP, if_not_matched, get_disease_TREAT, get_disease_DESC)
+    process_DB_knowledge()
+    engine = MedConsult(diseases_SYMP_MAP, if_unmatched, get_disease_TREAT, get_disease_DESC)
 
     while 1:
         engine.reset()
         engine.run()
-        print("\nWould you like to diagnose some other symptoms? (Reply yes or no)")
-        if input() == "no":
+        print("\nEnter any key to diagnose some other symptoms or enter 'EXIT' to quit...")
+        if input().lower() == "EXIT":
             exit()
